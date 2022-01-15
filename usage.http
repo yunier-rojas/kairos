@@ -1,0 +1,44 @@
+# Downstrean server API
+
+# Example of API endpoint which replies with webhooks
+
+POST http://localhost:8080/webhook/
+Content-Type: application/json
+
+{
+  "data": {
+    "a": 1,
+    "b": 2
+  }
+}
+
+###
+
+
+###
+
+# This is the internal API of Kairos which will handle callbacks webhooks from downstream servers
+
+POST http://localhost:8081/callback/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaWQiOls2MCw0OCw0Niw1Miw1Miw1Miw0Niw0OCw2Ml19.oZn3WLTkRkm4fY9Ke2CKsZpfEIZv9_9OmGwYHPxtrPA
+Content-Type: application/json
+
+{
+  "name": "person"
+}
+
+### ASYNC
+
+# public API request that expects to have a response instead of a webhook
+
+POST http://localhost:8082/webhook/
+Content-Type: application/json
+X-Webhook-Url: http://localhost:8081/callback/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaWQiOls2MCw0OCw0Niw1Miw1Miw1Miw0Niw0OCw2Ml19.oZn3WLTkRkm4fY9Ke2CKsZpfEIZv9_9OmGwYHPxtrPA
+
+{
+  "data": {
+    "a": 1,
+    "b": 2
+  }
+}
+
+###

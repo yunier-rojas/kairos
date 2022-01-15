@@ -1,35 +1,55 @@
 %%%-------------------------------------------------------------------
-%% @doc kairos top level supervisor.
-%% @end
+%%% @author yunier
+%%% @copyright (C) 2021, <COMPANY>
+%%% @doc
+%%%
+%%% @end
+%%% Created : 19. Dec 2021 20:43
 %%%-------------------------------------------------------------------
 
 -module(kairos_sup).
 
 -behaviour(supervisor).
 
+%%%===================================================================
+%%% API
+%%%===================================================================
+
 -export([start_link/0]).
 
+%%%===================================================================
+%%% Supervisor callbacks
+%%%===================================================================
 -export([init/1]).
 
 -define(SERVER, ?MODULE).
 
+%%%===================================================================
+%%% API functions
+%%%===================================================================
+
+%% @doc Starts the supervisor
+-spec start_link() -> {ok, Pid :: pid()} | ignore | {error, Reason :: term()}.
 start_link() ->
-    supervisor:start_link({local, ?SERVER}, ?MODULE, []).
+    supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
-%% sup_flags() = #{strategy => strategy(),         % optional
-%%                 intensity => non_neg_integer(), % optional
-%%                 period => pos_integer()}        % optional
-%% child_spec() = #{id => child_id(),       % mandatory
-%%                  start => mfargs(),      % mandatory
-%%                  restart => restart(),   % optional
-%%                  shutdown => shutdown(), % optional
-%%                  type => worker(),       % optional
-%%                  modules => modules()}   % optional
+%%%===================================================================
+%%% Supervisor callbacks
+%%%===================================================================
+
+%% @private
+%% @doc Whenever a supervisor is started using supervisor:start_link/[2,3],
+%% this function is called by the new process to find out about
+%% restart strategy, maximum restart frequency and child
+%% specifications.
+%% @end
+-spec init(Args :: term()) ->
+    {ok, {SupFlags :: supervisor:sup_flags(), [ChildSpec :: supervisor:child_spec()]}}
+    | ignore.
+
 init([]) ->
-    SupFlags = #{strategy => one_for_all,
-                 intensity => 0,
-                 period => 1},
-    ChildSpecs = [],
-    {ok, {SupFlags, ChildSpecs}}.
-
-%% internal functions
+    Procs = [],
+    {ok, {{one_for_one, 10, 10}, Procs}}.
+%%%===================================================================
+%%% Internal functions
+%%%===================================================================
