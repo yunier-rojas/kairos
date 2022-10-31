@@ -1,5 +1,5 @@
 %%%-------------------------------------------------------------------
-%%% @author yunier
+%%% @author Yunier Rojas García
 %%% @copyright 2021, Yunier Rojas García
 %%% @doc
 %%% Wrapper around an HTTP client that transform an incoming request to
@@ -216,6 +216,10 @@ build_downstream_request(Req, UUID, ProxyOptions) ->
 build_url_with_different_port_should_change_port_test() ->
     NewUrl = build_url(?REQ, #{port => 8082}),
     ?assertEqual(<<"http://localhost:8082/webhook/">>, NewUrl).
+
+build_url_with_different_path_should_change_path_test() ->
+    NewUrl = build_url(?REQ, #{path => "/api/webhook/"}),
+    ?assertEqual(<<"http://localhost:8080/api/webhook/">>, NewUrl).
 
 build_downstream_url_with_options_should_change_parts_test() ->
     NewUrl = build_downstream_url(?REQ, ?OPTIONS),

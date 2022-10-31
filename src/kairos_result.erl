@@ -1,5 +1,5 @@
 %%%-------------------------------------------------------------------
-%%% @author yunier
+%%% @author Yunier Rojas García
 %%% @copyright 2021, Yunier Rojas García
 %%% @doc
 %%% Set of functions that allow a process to register itself as a global

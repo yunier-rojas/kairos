@@ -17,7 +17,7 @@ tests:
 cover:
 	rebar3 as test ct --cover --dir test
 	rebar3 as test cover
-	python -m webbrowser "file://$(ROOT_DIR)/_build/test/cover/index.html"
+	python -m webbrowser "file://${CURDIR}/_build/test/cover/index.html"
 
 .PHONY: types
 types:

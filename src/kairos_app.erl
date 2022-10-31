@@ -34,7 +34,7 @@
 %%% to this endpoint will be sent to waiting response with code
 %%% <code>:uuid</code>.
 %%%
-%%% === Internal API ===
+%%% === Test API ===
 %%% Kairos application includes a non-production endpoints to test the
 %%% functionalities of Kairos. This testing server binds to port
 %%% <code>8082</code> and expose the endpoint <code>/webhook</code>
@@ -147,7 +147,7 @@ stop(_State) ->
 dev_endpoint() ->
     TestDispatch = cowboy_router:compile([
         {'_', [
-            {"/webhook", kairos_test_downstream_webhook_handler, []}
+            {"/api/webhook/test", kairos_test_webhook_api_handler, []}
         ]}
     ]),
     {ok, _} = cowboy:start_clear(

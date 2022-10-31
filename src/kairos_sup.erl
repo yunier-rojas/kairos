@@ -1,6 +1,6 @@
 %%%-------------------------------------------------------------------
-%%% @author yunier
-%%% @copyright (C) 2021, <COMPANY>
+%%% @author Yunier Rojas García
+%%% @copyright (C) 2021, Yunier Rojas García
 %%% @doc
 %%%
 %%% @end
