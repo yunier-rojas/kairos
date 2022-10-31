@@ -10,7 +10,7 @@
 %%% @end
 %%% Created : 11. Dec 2021 15:23
 %%%-------------------------------------------------------------------
--module(kairos_test_downstream_webhook_handler).
+-module(kairos_test_webhook_api_handler).
 
 -ifdef(TEST).
 -include_lib("eunit/include/eunit.hrl").

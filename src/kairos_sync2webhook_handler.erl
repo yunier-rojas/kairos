@@ -2,13 +2,24 @@
 %%% @author Yunier Rojas García
 %%% @copyright 2021, Yunier Rojas García
 %%% @doc
-%%% Cowboy handler to intercept and resolve public API requests. So this
+%%% Cowboy handler to intercept and resolve public API requests. This
 %%% module will handle incoming HTTP requests from public clients to the
 %%% legacy API and will translate them to the new async API.
+%%%
+%%% Client makes a request to Kairos, this handler transforms the request
+%%% into a downstream request with a webhook configuration.
+%%% [client] --> [sync2webhook] <--> [downstream]
+%%%
+%%% Eventually, downstream server calls the callback activating the webhook.
+%%%              [sync2webhook] <--  [downstream]
+%%%
+%%% After that, Kairos routes the webhook data to the waiting client request.
+%%% [client] <.. [sync2webhook]
+%%%
 %%% @end
 %%% Created : 11. Dec 2021 15:23
 %%%-------------------------------------------------------------------
--module(kairos_async_webhook_handler).
+-module(kairos_sync2webhook_handler).
 
 -ifdef(TEST).
 -include_lib("eunit/include/eunit.hrl").

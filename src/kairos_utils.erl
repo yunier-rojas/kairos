@@ -1,5 +1,5 @@
 %%%-------------------------------------------------------------------
-%%% @author yunier
+%%% @author Yunier Rojas García
 %%% @copyright 2021, Yunier Rojas García
 %%% @doc
 %%% Collection of function used across the project.

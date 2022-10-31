@@ -1,8 +1,10 @@
-# Downstrean server API
+# breaking-change webhook-based API example
+# This is an example of how a normal webhook API works.
+# It is meant as a testing operation for the transformation
+# between async API calls and webhook based.
 
-# Example of API endpoint which replies with webhooks
-
-POST http://localhost:8080/webhook/
+POST http://localhost:8082/api/webhook/test
+X-Webhook-Url: https://httpbin.org/post
 Content-Type: application/json
 
 {
@@ -14,25 +16,12 @@ Content-Type: application/json
 
 ###
 
+# Example of transforming a legacy API call into the new webhook-based.
+# This transformation is completely transparent to the client to ensure
+# backward compatibility with any previous version.
 
-###
-
-# This is the internal API of Kairos which will handle callbacks webhooks from downstream servers
-
-POST http://localhost:8081/callback/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaWQiOls2MCw0OCw0Niw1Miw1Miw1Miw0Niw0OCw2Ml19.oZn3WLTkRkm4fY9Ke2CKsZpfEIZv9_9OmGwYHPxtrPA
+POST http://localhost:8080/api/sync/test
 Content-Type: application/json
-
-{
-  "name": "person"
-}
-
-### ASYNC
-
-# public API request that expects to have a response instead of a webhook
-
-POST http://localhost:8082/webhook/
-Content-Type: application/json
-X-Webhook-Url: http://localhost:8081/callback/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaWQiOls2MCw0OCw0Niw1Miw1Miw1Miw0Niw0OCw2Ml19.oZn3WLTkRkm4fY9Ke2CKsZpfEIZv9_9OmGwYHPxtrPA
 
 {
   "data": {
