@@ -2,45 +2,35 @@
 %%% @author Yunier Rojas García
 %%% @copyright (C) 2021, Yunier Rojas García
 %%% @doc
-%%% == Kairos ==
-%%% Kairos is a very specific HTTP proxy. Its purpose is to allow APIs
-%%% to migrate to webhook operations without introducing breaking changes
-%%% to the public. It does that by transforming legacy requests into
-%%% webhook operations and then waits and send the result when it is
-%%% available.
+%%% == Kairos HTTP Proxy Documentation ==
 %%%
-%%% === Use case ===
-%%% The main use case of this application is when a public API with
-%%% normal synchronous operations (meaning the client makes a request
-%%% and blocks until it get the result) introduce async operations based
-%%% on webhooks. The process to deprecate the old operation can take a
-%%% long time and maintaining both versions of the API can be costly.
+%%% === Introduction ===
+%%% Kairos is a specialized HTTP proxy designed to facilitate the seamless transition of APIs from synchronous to
+%%% asynchronous operations using webhooks, all while avoiding disruptive changes for the public.
 %%%
-%%% You can reduce the impact of this problem by introducing a Kairos
-%%% server in front of the public API and serve the synchronous operations
-%%% through Kairos by orchestrating the asynchronous endpoints.
+%%% === Use Case ===
+%%% The primary use case for Kairos arises when a public API initially relies on synchronous operations, where the
+%%% client sends a request and waits for a response. Transitioning to asynchronous operations based on webhooks can
+%%% be a lengthy process, and maintaining both versions of the API can be costly. Kairos mitigates these challenges
+%%% by acting as an intermediary server that orchestrates the asynchronous endpoints, reducing the impact of the
+%%% transition.
 %%%
 %%% === Public API ===
-%%% Kairos binds to port <code>8080</code> for all endpoints defined in
-%%% the configuration file (See <code>kairos_config.erl</code>). Those
-%%% endpoints should receive the public API call which will be transformed
-%%% into calls to the async operations downstream and will wait for the
-%%% result of those operation before returning the response to the public.
-%%%
+%%% Kairos binds to port 8080 for all endpoints defined in the configuration file (refer to kairos_config.erl).
+%%% These endpoints should receive requests from the public API, which Kairos transforms into calls to the downstream
+%%% asynchronous operations. Kairos then waits for the results of these operations before returning the response
+%%% to the public.
+
 %%% === Internal API ===
-%%% Kairos also binds to port <code>8081</code> exposing the endpoint
-%%% <code>/callback/:uuid</code> which will receive the callback functions
-%%% of the async operations downstream using webhooks. Whatever data is
-%%% to this endpoint will be sent to waiting response with code
-%%% <code>:uuid</code>.
-%%%
+%%% Kairos also binds to port 8081, exposing the endpoint /callback/:uuid. This endpoint receives callback functions
+%%% from the downstream asynchronous operations via webhooks. Any data sent to this endpoint will be forwarded to the
+%%% waiting response associated with the corresponding :uuid.
+
 %%% === Test API ===
-%%% Kairos application includes a non-production endpoints to test the
-%%% functionalities of Kairos. This testing server binds to port
-%%% <code>8082</code> and expose the endpoint <code>/webhook</code>
-%%% This endpoint receives a request with a header with the URL of the
-%%% callback endpoint and calls the endpoint after some seconds.
-%%%
+%%% Kairos includes non-production endpoints for testing its functionalities. The testing server binds to port 8082
+%%% and exposes the /webhook endpoint. This endpoint accepts a request with a header containing the URL of the callback
+%%% endpoint and invokes the specified endpoint after a specified delay.
+
 %%%
 %%% @end
 %%% Created : 11. Dec 2021 15:23
