@@ -1,5 +1,5 @@
 {application, kairos, [
-    {description, "Kairos migration server"},
+    {description, "Kairos Proxy"},
     {vsn, "0.1.0"},
     {registered, []},
     {mod, {kairos_app, []}},
@@ -11,6 +11,6 @@
     ]},
     {env, []},
     {modules, []},
-    {licenses, ["Apache 2.0"]},
+    {licenses, ["MIT"]},
     {links, []}
 ]}.
